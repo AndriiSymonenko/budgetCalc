@@ -10,13 +10,28 @@ let appData = {
     saving: false,
 };
 
+    for(i = 0; i < 2; i++) {
+        let monthExpenses = prompt("Введите обязательную статью расходов в этом месяце", "");
+        let priceMonthExpenses = prompt("Во сколько обойдется?", "");
+        appData.optionalExpenses[monthExpenses] = priceMonthExpenses;
+    }
+        // if( (typeof(monthExpenses)) != null && (typeof(priceMonthExpenses)) != null && monthExpenses != '' && priceMonthExpenses != '' && monthExpenses.length > 50) {
+           
+    
+    appData.moneyDay = appData.budget/30;
 
-    let monthExpenses = prompt("Введите обязательную статью расходов в этом месяце", "");
-    let priceMonthExpenses = +prompt("Во сколько обойдется?", "");
+alert("Бюджет на 1 день:" + appData.moneyDay);
+ 
+if (appData.moneyDay < 100) {
+    console.log("Минимальный уровень достатка");
+} else if(appData.moneyDay > 100 && appData.moneyDay < 2000) {
+    console.log("Средний уровень достатка");
+} else if(appData.moneyDay > 2000) {
+    console.log("Высокий уровень достатка");
+} else {
+    console.log("Ошибка");
+}
 
-    appData.expenses[monthExpenses] = priceMonthExpenses;
 
 
-
-alert("Бюджет на 1 день" + appData.budget/30);
 console.log(appData);
