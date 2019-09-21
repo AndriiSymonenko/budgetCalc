@@ -1,5 +1,15 @@
-let money = prompt("Ваш бюджет на месяц?", "");
-let time = prompt("Введите дату в формате YYYY-MM-DD", "");
+let money, time;
+
+function start() {
+    money = prompt("Ваш бюджет на месяц?", "");
+    time = prompt("Введите дату в формате YYYY-MM-DD", "");
+
+    while(isNaN(money) || money =="" || money == null) {
+        money = prompt("Ваш бюджет на месяц?", "");
+    }
+}
+
+start();
 
 let appData = {
     budget: money,
@@ -10,8 +20,10 @@ let appData = {
     saving: false,
 };
 
+
+function chooseOptExpenses() {
     for(let i = 0; i < 2; i++) {
-        let monthExpenses = prompt("Введите обязательную статью расходов в этом месяце", "");
+        let monthExpenses = prompt("Статья обязательных расходов?", "");
         let priceMonthExpenses = prompt("Во сколько обойдется?", "");
         if( monthExpenses != null && priceMonthExpenses != null && monthExpenses != '' && priceMonthExpenses != '') {
             appData.optionalExpenses[monthExpenses] = priceMonthExpenses;
@@ -20,10 +32,11 @@ let appData = {
         }
     }
         
-    console.log(typeof(priceMonthExpenses));
+}
+    
+chooseOptExpenses();
 
-        
-    appData.moneyDay = appData.budget/30;
+    appData.moneyDay = (appData.budget/30).toFixed();
 function detectDayBudget() {
     alert("Бюджет на 1 день:" + appData.moneyDay);
 }
@@ -44,5 +57,20 @@ function detectLevel() {
 
 detectLevel();
 
+function checkSavings() {
+    let getDeposit = confirm("У вас есть депозит?");
+    if(getDeposit) {
+        appData.saving = true;
+    }
+    if(appData.saving == true) {
+        let save = +prompt("Какова сумма накоплений?"),
+            percent = +prompt("Под какой процент?");
+
+            appData.monthIncome = save/100/12*percent;
+            alert("Доход в месяц с вашего депозита: " + appData.monthIncome);
+    }
+}
+
+checkSavings();
 
 console.log(appData);
